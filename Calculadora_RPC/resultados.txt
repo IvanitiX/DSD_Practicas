@@ -1,0 +1,150 @@
+rm -f core obj/calculadora_clnt.o obj/calculadora_client.o obj/calculadora_xdr.o  obj/calculadora_svc.o obj/calculadora_server.o obj/calculadora_xdr.o  bin/cliente bin/server
+[3J[H[2Jgcc -c -o  obj/calculadora_clnt.o -g -Iinclude/  src/calculadora_clnt.c
+gcc -c -o  obj/calculadora_client.o -g -Iinclude/  src/calculadora_client.c
+gcc -c -o  obj/calculadora_xdr.o -g -Iinclude/  src/calculadora_xdr.c
+cc -g -Iinclude/    -o bin/cliente obj/calculadora_clnt.o obj/calculadora_client.o obj/calculadora_xdr.o  -lnsl -lm 
+gcc -c -o  obj/calculadora_svc.o -g -Iinclude/  src/calculadora_svc.c
+gcc -c -o  obj/calculadora_server.o -g -Iinclude/  src/calculadora_server.c
+cc -g -Iinclude/    -o bin/server obj/calculadora_svc.o obj/calculadora_server.o obj/calculadora_xdr.o  -lnsl -lm
+Operación a localhost -> 2.000000 + 2.000000 
+Sumamos
+localhost -> 2.000000 + 2.000000 = 4.000000 
+Operación a localhost -> 2.000000 - 2.000000 
+Restamos
+localhost -> 2.000000 - 2.000000 = 0.000000 
+Operación a localhost -> 2.000000 x 2.000000 
+Multiplicamos
+localhost -> 2.000000 x 2.000000 = 4.000000 
+Operación a localhost -> 2.000000 : 2.000000 
+Dividimos
+localhost -> 2.000000 : 2.000000 = 1.000000 
+Operación a localhost -> 34.000000 + 67.000000 
+Sumamos
+localhost -> 34.000000 + 67.000000 = 101.000000 
+Operación a localhost -> 34.000000 - 67.000000 
+Restamos
+localhost -> 34.000000 - 67.000000 = -33.000000 
+Operación a localhost -> 34.000000 x 67.000000 
+Multiplicamos
+localhost -> 34.000000 x 67.000000 = 2278.000000 
+Operación a localhost -> 34.000000 : 67.000000 
+Dividimos
+localhost -> 34.000000 : 67.000000 = 0.507463 
+Ecuación de segundo grado:
+
+localhost : Para la ecuación 3x^2 + -5x + 1 = 0 -> {X1 = 1.434259 , X2 = 0.232408} 
+Ecuación de segundo grado:
+
+localhost : Para la ecuación 0x^2 + 2x + -1 = 0 -> {X1 = 0.500000 , X2 = 0.500000} 
+Ecuación de segundo grado:
+
+localhost : Para la ecuación 3x^2 + 0x + -1 = 0 -> {X1 = 0.577350 , X2 = -0.577350} 
+Ecuación de segundo grado:
+
+localhost : Para la ecuación 3x^2 + 2x + 0 = 0 -> {X1 = 0.000000 , X2 = -0.666667} 
+Ecuación de segundo grado:
+
+localhost : Para la ecuación 1x^2 + 1x + 1 = 0 -> No hay soluciones reales 
+Tamaño -> 30 :Sumamos
+localhost -> Operación acumulada [+] = 15497.000000 
+Tamaño -> 30 :Restamos
+localhost -> Operación acumulada [-] = -14621.000000 
+Tamaño -> 30 :Multiplicamos
+localhost -> Operación acumulada [x] = 1468450060551780028677026806489036656842990484978996705201590844369443095576576.000000 
+Tamaño -> 30 :Sumamos
+localhost -> Operación acumulada [+] = 1610.000000 
+Tamaño -> 30 :Restamos
+localhost -> Operación acumulada [-] = -1602.000000 
+Tamaño -> 30 :Multiplicamos
+localhost -> Operación acumulada [x] = 1301735002181677213424826898104377746746364657664.000000 
+Tamaño -> 30 :Tamaño -> 30 :Sumamos
+localhost -> Operación vectorial [+] =
+[ 442.000000  983.000000  356.000000  301.000000  629.000000  776.000000  1014.000000  947.000000  521.000000  354.000000  1084.000000  595.000000  122.000000  827.000000  455.000000  644.000000  948.000000  136.000000  712.000000  236.000000  429.000000  164.000000  776.000000  784.000000  756.000000  106.000000  507.000000  677.000000  421.000000  405.000000 ]
+
+Tamaño -> 30 :Tamaño -> 30 :Restamos
+localhost -> Operación vectorial [-] =
+[ 434.000000  871.000000  296.000000  133.000000  437.000000  660.000000  850.000000  913.000000  425.000000  318.000000  906.000000  485.000000  -24.000000  771.000000  311.000000  552.000000  934.000000  92.000000  524.000000  60.000000  289.000000  112.000000  772.000000  604.000000  608.000000  -48.000000  419.000000  487.000000  363.000000  333.000000 ]
+
+Tamaño -> 30 :Tamaño -> 30 :Multiplicamos
+localhost -> Operación vectorial [x] =
+[ 1752.000000  51912.000000  9780.000000  18228.000000  51168.000000  41644.000000  76424.000000  15810.000000  22704.000000  6048.000000  88555.000000  29700.000000  3577.000000  22372.000000  27576.000000  27508.000000  6587.000000  2508.000000  58092.000000  13024.000000  25130.000000  3588.000000  1548.000000  62460.000000  50468.000000  2233.000000  20372.000000  55290.000000  11368.000000  13284.000000 ]
+
+Tamaño -> 30 :Tamaño -> 30 :Dividimos
+localhost -> Operación vectorial [:] =
+[ 109.500000  16.553571  10.866667  2.583333  5.552083  12.379310  11.365854  54.705882  9.854167  18.666667  11.179775  9.818182  0.671233  28.535714  5.319444  13.000000  134.428571  5.181818  6.574468  1.681818  5.128571  5.307692  387.000000  7.711111  9.216216  0.376623  10.522727  6.126316  13.517241  10.250000 ]
+
+Tamaño de matriz-> 4 x 4 :
+Tamaño de matriz-> 4 x 4 :
+Sumamos
+localhost -> Operación vectorial [+] =
+[ 10.000000  82.000000  39.000000  79.000000 ]
+[ 54.000000  19.000000  91.000000  73.000000 ]
+[ 26.000000  51.000000  20.000000  62.000000 ]
+[ 64.000000  100.000000  49.000000  18.000000 ]
+
+
+[ 21.000000  19.000000  91.000000  99.000000 ]
+[ 41.000000  57.000000  83.000000  76.000000 ]
+[ 15.000000  31.000000  33.000000  16.000000 ]
+[ 70.000000  59.000000  82.000000  84.000000 ]
+
+
+Resultado: 
+[ 31.000000  101.000000  130.000000  178.000000 ]
+[ 95.000000  76.000000  174.000000  149.000000 ]
+[ 41.000000  82.000000  53.000000  78.000000 ]
+[ 134.000000  159.000000  131.000000  102.000000 ]
+
+
+Tamaño de matriz-> 4 x 4 :
+Tamaño de matriz-> 4 x 4 :
+Restamos
+localhost -> Operación vectorial [-] =
+[ 10.000000  82.000000  39.000000  79.000000 ]
+[ 54.000000  19.000000  91.000000  73.000000 ]
+[ 26.000000  51.000000  20.000000  62.000000 ]
+[ 64.000000  100.000000  49.000000  18.000000 ]
+
+
+[ 21.000000  19.000000  91.000000  99.000000 ]
+[ 41.000000  57.000000  83.000000  76.000000 ]
+[ 15.000000  31.000000  33.000000  16.000000 ]
+[ 70.000000  59.000000  82.000000  84.000000 ]
+
+
+Resultado: 
+[ -11.000000  63.000000  -52.000000  -20.000000 ]
+[ 13.000000  -38.000000  8.000000  -3.000000 ]
+[ 11.000000  20.000000  -13.000000  46.000000 ]
+[ -6.000000  41.000000  -33.000000  -66.000000 ]
+
+
+Tamaño de matriz-> 4 x 4 :
+Tamaño de matriz-> 4 x 4 :
+Multiplicamos
+localhost -> Operación vectorial [x] =
+[ 10.000000  82.000000  39.000000  79.000000 ]
+[ 54.000000  19.000000  91.000000  73.000000 ]
+[ 26.000000  51.000000  20.000000  62.000000 ]
+[ 64.000000  100.000000  49.000000  18.000000 ]
+
+
+[ 21.000000  19.000000  91.000000  99.000000 ]
+[ 41.000000  57.000000  83.000000  76.000000 ]
+[ 15.000000  31.000000  33.000000  16.000000 ]
+[ 70.000000  59.000000  82.000000  84.000000 ]
+
+
+Resultado: 
+[ 10598.000000  12267.000000  12503.000000  10616.000000 ]
+[ 8604.000000  16730.000000  9232.000000  12609.000000 ]
+[ 7502.000000  10321.000000  9093.000000  8133.000000 ]
+[ 8466.000000  11447.000000  13458.000000  15718.000000 ]
+
+
+Tamaño de matriz-> 4 x 4 :
+
+localhost -> Determinante = -17345874.000000 
+Tamaño de matriz-> 4 x 4 :
+
+localhost -> Determinante = -923660.000000 

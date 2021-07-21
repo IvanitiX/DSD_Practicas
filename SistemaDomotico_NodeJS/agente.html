@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente</title>
+</head>
+<body>
+	<p>Estado del agente</p>
+	<p id="estado_agente">Inactivo</p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const TEMP_LIMITS={
+			MAX: 30,
+			MIN: 10
+		};
+
+		const LUMENS_LIMITS={
+			MAX: 70,
+			MIN: 20
+		};
+
+        var serviceURL = 'localhost:8080';
+		var socket = io.connect(serviceURL);
+
+        socket.on('connect', function(params) {
+            socket.emit('actualizarSensores');
+			document.getElementById("estado_agente").innerText = "Activo";
+        });
+        socket.on('actualizarSensores', function(data){
+            string = "";
+			if (data.temp < TEMP_LIMITS.MIN) {
+				string += '¡Alerta! Temperatura baja\n';
+				socket.emit('alertatemperatura',{limite:"min"});
+			}
+			if (data.temp > TEMP_LIMITS.MAX) {
+				string +='¡Alerta! Temperatura alta\n';
+				socket.emit('alertatemperatura',{limite:"max"});
+			}
+			if (data.lumi < LUMENS_LIMITS.MIN) {
+				string +='¡Alerta! Poca luz\n';
+				socket.emit('alertaluminosidad',{limite:"min"});
+			}
+			if (data.lumi > LUMENS_LIMITS.MAX) {
+				string +='¡Alerta! Mucha luz\n';
+				socket.emit('alertaluminosidad',{limite:"max"});
+			}
+            console.log(string);
+            socket.emit('alertas',string);
+        });
+		socket.on('disconnect', function(params) {
+			document.getElementById("estado_agente").innerText = "Inactivo";
+        });
+    </script>
+</body>
+</html>

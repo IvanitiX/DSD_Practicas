@@ -1,0 +1,152 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Usuarios</title>
+	</head>
+	<body>
+		<span id="mensaje_servicio"></span>
+		<div class="half">
+			<h2>Estado de los sensores</h1>
+				<p>Datos actualizados a las </p>
+				<p id="mark"></p>
+			<div>
+				<div>
+					<p>Temperatura</p>
+					<p id="tmp"></p>
+				</div>
+				<div>
+					<p>Luminosidad</p>
+					<p id="lmn"></p>
+				</div>
+			</div>
+
+			<h2>Estado de los actuadores</h2>
+			<div>
+				<p>Aire acondicionado</p>
+				<p id="ac"></p>
+				<button onclick="changeAC()">Cambiar estado A/C</button>
+				<p>Persiana</p>
+				<p id="motor"></p>
+				<button onclick="changePersiana()">Cambiar estado persiana</button>
+			</div>
+		</div>
+
+		<div class="half">
+			<h2>Previsión meteorológica</h2>
+			Las coordenadas de la casa son:
+			<p>Longitud</p>
+			<p id="longitud">-3.60</p>
+			<p>Latitud</p>
+			<p id="latitud">37.19</p>
+			<img src="http://www.7timer.info/bin/civil.php?lon=-3.60667&lat=37.18817&ac=0&lang=en&unit=metric&output=internal&tzshift=0" alt="Tiempo" id="tiempoapi">
+		</div>
+
+		<div class="half">
+			<h2>Estadísticas</h2>
+			<p>Número de muestras</p>
+			<p id="cuenta"></p>
+			<p>Media</p>
+			<p id="media"></p>
+			<p>Máximo</p>
+			<p id="maximo"></p>
+			<p>Mínimo</p>
+			<p id="minimo"></p>
+		</div>
+
+		
+	</body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		function mostrar_mensaje(msg){
+			var span_msg = document.getElementById('mensaje_servicio');
+			span_msg.innerHTML = msg;
+		}
+	
+		function actualizarLista(usuarios){
+			var listContainer = document.getElementById('lista_usuarios');
+			listContainer.innerHTML = '';
+			var listElement = document.createElement('ul');
+			listContainer.appendChild(listElement);
+			var num = usuarios.length;
+			for(var i=0; i<num; i++) {
+	            var listItem = document.createElement('li');
+	            listItem.innerHTML = usuarios[i].address+":"+usuarios[i].port;
+	            listElement.appendChild(listItem);
+	        }
+	    }
+
+		function changeAC(){
+			socket.emit('ac', 0);
+		}
+
+		function changePersiana(){
+			socket.emit('persiana', 0);
+		}
+	    
+		var serviceURL = document.URL;
+		var socket = io.connect(serviceURL);
+
+		socket.on('connect', function(){
+			socket.emit('stats',0);
+		});
+		socket.on('output-evt', function(data) {
+			mostrar_mensaje('Mensaje de servicio: '+data);
+		});
+		socket.on('disconnect', function() {
+			mostrar_mensaje('¡Uh, oh! El servicio ha dejado de funcionar... Reinicia la aplicación');
+		});
+		socket.on('actualizarSensores', function(data){
+			console.log("Llega info de los sensores...");
+			temperatura = document.getElementById("tmp");
+			luminosidad = document.getElementById("lmn");
+			fecha = document.getElementById("mark");
+			longitud = document.getElementById("longitud");
+			latitud = document.getElementById("latitud");
+			temperatura.innerText = data.temp;
+			luminosidad.innerText = data.lumi;
+			fecha.innerText = data.timemark;
+			if (data.long && data.lat) {
+				longitud.innerText = data.long;
+				latitud.innerText = data.lat;
+				urlImg = "http://www.7timer.info/bin/civil.php?lon=" + data.long + "&lat=" + data.lat + "&ac=0&lang=en&unit=metric&output=internal&tzshift=0";
+				tiempo = document.getElementById("tiempoapi");
+				tiempo.src = urlImg;
+			}
+			socket.emit("stats",0);
+		});
+
+		socket.on('actualizarActuadores', function(data){
+			console.log("Llega info de los actuadores...");
+			console.log(data);
+			aire = document.getElementById("ac");
+			persiana = document.getElementById("motor");
+			(data.aire == true) ? aire.innerText = "Encendido" : aire.innerText = "Apagado";
+			(data.persiana == true) ? persiana.innerText = "Subida" : persiana.innerText = "Bajada";
+		});
+		socket.on('alertas', function(data){
+			mostrar_mensaje(data);
+		});
+		socket.on('stats', function(data){
+			console.log("Stats");
+			cuenta = document.getElementById("cuenta");
+			minimo = document.getElementById("minimo");
+			maximo = document.getElementById("maximo");
+			media = document.getElementById("media");
+
+			maximo.innerText = "Temperatura : " + data.maxtp + " Luminosidad : " + data.maxlm ;
+			cuenta.innerText = data.cuenta;
+			minimo.innerText = "Temperatura : " + data.mintp + " Luminosidad : " + data.minlm ;
+			media.innerText = "Temperatura : " + data.media_tp + " Luminosidad : " + data.media_lm ;
+		});
+	</script>
+	<style>
+		.half{
+			float: left;
+			padding-right: 5%;
+		}
+
+		.half img{
+			width: 70%;
+		}
+	</style>
+</html>
